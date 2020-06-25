@@ -9,12 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    ArrayList<String> users;
+    List<User> users;
 
-    public UserAdapter(ArrayList<String> users) {
+    public UserAdapter(List<User> users) {
         this.users = users;
     }
 
@@ -27,7 +28,9 @@ class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.ViewHolder holder, int position) {
-        holder.firstname.setText(users.get(position));
+        holder.firstName.setText(users.get(position).getFirstName());
+        holder.lastName.setText(users.get(position).getLastName());
+        holder.emailAddress.setText(users.get(position).getEmail());
     }
 
     @Override
@@ -37,11 +40,15 @@ class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView firstname;
+        public TextView firstName;
+        public TextView lastName;
+        public TextView emailAddress;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            firstname = itemView.findViewById(R.id.firstname);
+            firstName = itemView.findViewById(R.id.firstname);
+            lastName = itemView.findViewById(R.id.lastname);
+            emailAddress = itemView.findViewById(R.id.email);
         }
     }
 }

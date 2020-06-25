@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateUser extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class CreateUser extends AppCompatActivity {
     EditText email;
     Button saveuser;
 
-    ArrayList<String> users;
+//    List<User> users;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,18 @@ public class CreateUser extends AppCompatActivity {
         email = findViewById(R.id.email);
         saveuser = findViewById(R.id.button);
 
-        users = new ArrayList<>();
+//        users = new ArrayList<>();
+//
+//        for (int i = 0; i < 10; i++){
+//            User user = new User("Nancy" + 1, "Chemutai", "chemutain@gmail.com");
+//            users.add(user);
+//        }
 
-        for (int i = 0; i < 10; i++){
-            users.add("Daniel #" + 1);
-        }
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
+                .allowMainThreadQueries()
+                .build();
+
+        List<User> users = db.userDao().getAllUsers();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new UserAdapter(users);
