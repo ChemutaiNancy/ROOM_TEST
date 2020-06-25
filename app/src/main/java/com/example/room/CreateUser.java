@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 
 public class CreateUser extends AppCompatActivity {
 
@@ -23,6 +25,8 @@ public class CreateUser extends AppCompatActivity {
     EditText lastname;
     EditText email;
     Button saveuser;
+
+    ArrayList<String> users;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,14 @@ public class CreateUser extends AppCompatActivity {
         email = findViewById(R.id.email);
         saveuser = findViewById(R.id.button);
 
+        users = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++){
+            users.add("Daniel #" + 1);
+        }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new UserAdapter();
-        adapter = new AsdfAdapter();
+        adapter = new UserAdapter(users);
         recyclerView.setAdapter(adapter);
 
         saveuser.setOnClickListener(new View.OnClickListener() {
